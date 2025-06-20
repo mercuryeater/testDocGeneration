@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Aplicación de Pago</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "Poppins", Arial, sans-serif;
+        line-height: 1.6;
+        color: #333;
+        margin: 0;
+        padding: 20px;
+        background-color: #f4f4f4;
+        font-size: 12px;
+      }
+
+      .container {
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+        gap: 10px;
+      }
+
+      .container-paper {
+        width: 100%;
+        max-width: 720px;
+        margin: 0 auto;
+        background-color: #fff;
+        padding: 25px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .header-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .logo-container {
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        width: 140px;
+        height: 70px;
+      }
+
+      .logo-img {
+        max-width: 100%;
+        max-height: 100%;
+        min-width: 120px;
+        min-height: 60px;
+        object-fit: contain;
+      }
+      .header-section {
+        margin-bottom: 1rem;
+      }
+
+      .company-info {
+        text-align: right;
+        font-size: 14px;
+      }
+
+      .company-info p {
+        margin: 0;
+      }
+
+      .section-title {
+        margin-top: 8px;
+        font-size: 14px;
+        font-weight: 600;
+        line-height: 8px;
+        text-align: left;
+        color: #141414;
+      }
+
+      .client-info-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 6px;
+      }
+
+      .info-item {
+        display: grid;
+        grid-template-columns: 120px 1fr;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .info-item label {
+        font-weight: 600;
+        color: #bababa;
+        font-size: 14px;
+        justify-self: start;
+      }
+
+      .info-item span {
+        color: #333;
+        justify-self: start;
+        font-size: 14px;
+      }
+
+      .separator {
+        height: 1px;
+        background-color: #f7f7f7;
+        margin: 16px 0;
+      }
+
+      .observations {
+        margin-bottom: 12px;
+      }
+
+      .attachments {
+        margin-bottom: 12px;
+      }
+
+      .attachments a {
+        color: #007bff;
+        text-decoration: none;
+      }
+
+      .attachments a:hover {
+        text-decoration: underline;
+      }
+
+      .payments-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 8px;
+        border-radius: 8px;
+      }
+
+      .payments-table th,
+      .payments-table td {
+        text-align: left;
+        padding: 12px;
+        border-bottom: 1px solid #e0e0e0;
+      }
+
+      .payments-table th {
+        font-weight: 600;
+        color: #666;
+      }
+
+      .payments-table tr:last-child td {
+        border-bottom: none;
+      }
+
+      .table-footer {
+        text-align: right;
+        font-weight: 600;
+        padding: 10px;
+        border-radius: 8px;
+        background-color: #f7f7f7;
+      }
+
+      .adjustments-container {
+        background-color: #f7f7f7;
+        padding: 16px;
+        border-radius: 8px;
+      }
+
+      .adjustments-table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+
+      .adjustments-table td {
+        padding: 8px 0;
+        vertical-align: top;
+      }
+
+      .adjustments-table tr:not(:last-child) {
+        border-bottom: 1px solid #e0e0e0;
+        margin-bottom: 8px;
+      }
+
+      .eye-icon {
+        width: 16px;
+        height: 16px;
+        vertical-align: middle;
+      }
+
+      .version-footer {
+        text-align: right;
+        color: #666;
+        font-size: 10px;
+        margin-top: 24px;
+      }
+
+      .date-user-info {
+        margin: 0px;
+      }
+      .user-info {
+        margin-top: 4px;
+        font-size: 0.875rem;
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        margin-bottom: 1rem;
+      }
+
+      .info-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+      }
+
+      .cashport-button {
+        background-color: #cbe71e;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 15px;
+        color: #333;
+        font-weight: 600;
+        cursor: pointer;
+        text-decoration: none;
+        font-size: 14px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <!-- Primer contenedor: Header e Información del Cliente -->
+      <div class="container-paper">
+        <section class="header-section">
+          <div class="header-container">
+            <div class="logo-container">
+              <img src="<%= logoUrl %>" alt="Company Logo" class="logo-img" />
+            </div>
+            <div class="company-info">
+              <!-- section aplicationNumber -->
+              <p>Aplicacion de pago. <%=aplication_number%></p>
+              <!-- end section aplicationNumber -->
+              <p><%= data_wallet.client_name %></p>
+              <p>NIT. <%= data_wallet.client_id %></p>
+              <!-- section balanceNumber -->
+                <p>Legalización de saldos # <%=balance_number%></p>
+              <!-- end section balanceNumber -->
+            </div>
+          </div>
+          <div class="user-info">
+            <div>
+              <p class="date-user-info"><%= data_wallet.date %></p>
+            </div>
+            <div>
+              <p class="date-user-info"><%= data_wallet.user_name %></p>
+            </div>
+            <div>
+              <p class="date-user-info">
+                <a href="<%= data_wallet.user_email %>"
+                  ><%= data_wallet.user_email %></a
+                >
+              </p>
+            </div>
+          </div>
+        </section>
+        <div class="separator"></div>
+        <div class="info-container">
+          <section>
+            <h2 class="section-title">Información Cliente</h2>
+            <div class="client-info-grid">
+              <div class="info-item">
+                <label>Cliente</label>
+                <span><%= client.name %></span>
+              </div>
+              <div class="info-item">
+                <label>NIT</label>
+                <span><%= client.nit %></span>
+              </div>
+              <div class="info-item">
+                <label>Contacto</label>
+                <span><%= client.contact %></span>
+              </div>
+              <div class="info-item">
+                <label>Dirección</label>
+                <span><%= client.address %></span>
+              </div>
+              <div class="info-item">
+                <label>Teléfono</label>
+                <span><%= client.phone %></span>
+              </div>
+            </div>
+          </section>
+
+          <a href="#" class="cashport-button">Ir a Cashport</a>
+        </div>
+      </div>
+      <!-- Tercer contenedor: Observaciones y Adjuntos -->
+      <div class="container-paper">
+        <section class="observations">
+          <h2 class="section-title">Observaciones</h2>
+          <p><%= observations %></p>
+        </section>
+
+        <div class="separator"></div>
+
+        <section class="attachments">
+          <h2 class="section-title">Adjuntos</h2>
+          <% attachments.forEach(function(attachment, index) { %>
+          <a href="<%= attachment.url %>"><%= attachment.name %></a><%= index <
+          attachments.length - 1 ? ', ' : '' %> <% }); %>
+        </section>
+      </div>
+
+      <!-- section pagos -->
+      <!-- Cuarto contenedor: Pagos -->
+      <div class="container-paper" style="margin-bottom: 140px">
+        <section>
+          <h2 class="section-title">Pagos</h2>
+          <table class="payments-table">
+            <thead>
+              <tr>
+                <th>Tipo pago</th>
+                <th>Banco</th>
+                <th>No. Cuenta</th>
+                <th>Documento</th>
+                <th>Fecha Pago</th>
+                <th>Aplicado</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <% payments.forEach(function(payment) { %>
+              <tr>
+                <td><%= payment.type %></td>
+                <td><%= payment.bank %></td>
+                <td><%= payment.accountNumber %></td>
+                <td><%= payment.document %></td>
+                <td><%= payment.paymentDate %></td>
+                <td>$<%= payment.appliedAmount %></td>
+                <td>
+                  <svg
+                    class="eye-icon"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M12 5C7 5 2.73 8.11 1 12.5C2.73 16.89 7 20 12 20C17 20 21.27 16.89 23 12.5C21.27 8.11 17 5 12 5ZM12 17.5C9.24 17.5 7 15.26 7 12.5C7 9.74 9.24 7.5 12 7.5C14.76 7.5 17 9.74 17 12.5C17 15.26 14.76 17.5 12 17.5ZM12 9.5C10.34 9.5 9 10.84 9 12.5C9 14.16 10.34 15.5 12 15.5C13.66 15.5 15 14.16 15 12.5C15 10.84 13.66 9.5 12 9.5Z"
+                      fill="#666"
+                    />
+                  </svg>
+                </td>
+              </tr>
+              <% }); %>
+            </tbody>
+          </table>
+          <div class="table-footer">
+            Total (<%= payments.length %>) $<%= totalPayments %>
+          </div>
+        </section>
+      </div>
+      <!-- end section pagos -->
+
+      <!-- Quinto contenedor: Facturas -->
+      <div class="container-paper">
+        <section>
+          <h2 class="section-title">Facturas</h2>
+          <table class="payments-table">
+            <thead>
+              <tr>
+                <th>Documento</th>
+                <th>Valor Total</th>
+                <th>Ajustes</th>
+                <th>Aplicado</th>
+                <th>Saldo</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% invoices.forEach(function(invoice) { %>
+              <tr>
+                <td><%= invoice.document %></td>
+                <td>$<%= invoice.totalValue %></td>
+                <td>$<%= invoice.adjustments %></td>
+                <td>$<%= invoice.applied %></td>
+                <td>$<%= invoice.balance %></td>
+              </tr>
+              <% }); %>
+            </tbody>
+            <tfoot class="table-footer">
+              <tr>
+                <td></td>
+                <td><strong>$<%= invoicesTotalValue %></strong></td>
+                <td><strong>$<%= invoicesTotalAdjustments %></strong></td>
+                <td><strong>$<%= invoicesTotalApplied %></strong></td>
+                <td><strong>$<%= invoicesTotalBalance %></strong></td>
+              </tr>
+            </tfoot>
+          </table>
+        </section>
+      </div>
+      <!-- Sexto contenedor: Ajustes -->
+      <div class="container-paper">
+        <section>
+          <h2 class="section-title">Ajustes</h2>
+          <table class="adjustments-table">
+            <thead>
+              <tr>
+                <th style="width: 30%">Origen Diferencia</th>
+                <th style="width: 50%">Observaciones</th>
+                <th style="width: 20%; text-align: right">Valor</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% adjustments.forEach(function(adjustment) { %>
+              <tr>
+                <td style="font-weight: 600"><%= adjustment.origin %></td>
+                <td><%= adjustment.observations %></td>
+                <td style="text-align: right">$<%= adjustment.value %></td>
+              </tr>
+              <% }); %>
+            </tbody>
+          </table>
+          <div class="table-footer">
+            Total Diferencias <strong>$<%= totalAdjustments %></strong>
+          </div>
+        </section>
+      </div>
+    </div>
+  </body>
+</html>
