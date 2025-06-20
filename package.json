@@ -1,0 +1,19 @@
+{
+  "name": "templete-profitline",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "node --watch index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "express": "^4.21.0",
+    "express-handlebars": "^8.0.1",
+    "handlebars": "^4.7.8",
+    "html-pdf": "^3.0.1",
+    "puppeteer": "^23.3.1"
+  }
+}
