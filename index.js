@@ -1,6 +1,7 @@
 const express = require("express");
 const Handlebars = require("handlebars");
 const puppeteer = require("puppeteer");
+const ejs = require("ejs"); // <--- 1. Requerimos EJS
 const fs = require("fs");
 const path = require("path");
 
@@ -104,6 +105,92 @@ app.get("/", async (req, res) => {
     const templatePath = path.join(__dirname, "views", "template.handlebars");
     const html = await renderTemplate(templatePath, context);
     res.send(html);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("An error occurred");
+  }
+});
+
+const ejsContext = {
+  logoUrl: "https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg", // URL de ejemplo
+  aplication_number: "APP-00123",
+  balance_number: "BLC-00456",
+  data_wallet: {
+    client_name: "Cliente de Prueba S.A.S.",
+    client_id: "900.123.456-7",
+    date: new Date().toLocaleDateString('es-CO'),
+    user_name: "Analista de Cartera",
+    user_email: "analista@empresa.com"
+  },
+  client: {
+    name: "Cliente de Prueba S.A.S.",
+    nit: "900.123.456-7",
+    contact: "Juan Pérez",
+    address: "Calle Falsa 123, Bogotá",
+    phone: "300 123 4567"
+  },
+  observations: "Estas son las observaciones de la aplicación de pago. Se requiere revisión de los ajustes aplicados.",
+  attachments: [
+    { name: "Soporte de pago 1", url: "#" },
+    { name: "Factura 123", url: "#" },
+    { name: "Otro documento", url: "#" },
+  ],
+  payments: [
+    { type: "Transferencia", bank: "Bancolombia", accountNumber: "123-456-789", document: "DOC-001", paymentDate: "20/06/2025", appliedAmount: "1,500,000" },
+    { type: "Cheque", bank: "Davivienda", accountNumber: "987-654-321", document: "DOC-002", paymentDate: "21/06/2025", appliedAmount: "750,000" },
+  ],
+  get totalPayments() {
+      // Usamos un getter para calcular el total dinámicamente
+      const total = this.payments.reduce((sum, p) => sum + parseFloat(p.appliedAmount.replace(/,/g, '')), 0);
+      return total.toLocaleString('es-CO');
+  },
+  invoices: [
+      { document: "FV-001", totalValue: "1,000,000", adjustments: "50,000", applied: "950,000", balance: "0" },
+      { document: "FV-002", totalValue: "800,000", adjustments: "0", applied: "800,000", balance: "0" },
+      { document: "FV-003", totalValue: "500,000", adjustments: "100,000", applied: "400,000", balance: "0" },
+  ],
+  get invoicesTotalValue() {
+    const total = this.invoices.reduce((sum, i) => sum + parseFloat(i.totalValue.replace(/,/g, '')), 0);
+    return total.toLocaleString('es-CO');
+  },
+  get invoicesTotalAdjustments() {
+    const total = this.invoices.reduce((sum, i) => sum + parseFloat(i.adjustments.replace(/,/g, '')), 0);
+    return total.toLocaleString('es-CO');
+  },
+  get invoicesTotalApplied() {
+    const total = this.invoices.reduce((sum, i) => sum + parseFloat(i.applied.replace(/,/g, '')), 0);
+    return total.toLocaleString('es-CO');
+  },
+  get invoicesTotalBalance() {
+    const total = this.invoices.reduce((sum, i) => sum + parseFloat(i.balance.replace(/,/g, '')), 0);
+    return total.toLocaleString('es-CO');
+  },
+  adjustments: [
+    { origin: "Diferencia de Precio", observations: "Se ajusta precio según acuerdo.", value: "50,000" },
+    { origin: "Descuento Pronto Pago", observations: "Aplica DPP factura FV-003.", value: "100,000" },
+  ],
+  get totalAdjustments() {
+    const total = this.adjustments.reduce((sum, a) => sum + parseFloat(a.value.replace(/,/g, '')), 0);
+    return total.toLocaleString('es-CO');
+  }
+};
+
+
+// 3. Creamos la nueva ruta /template que renderiza el archivo .ejs
+app.get("/template", async (req, res) => {
+  try {
+    const templatePath = path.join(__dirname, "views", "payment_template.ejs");
+    
+    // EJS tiene un método renderFile que es muy conveniente.
+    // Le pasamos la ruta, el objeto de datos, y un callback.
+    ejs.renderFile(templatePath, ejsContext, (err, html) => {
+      if (err) {
+        console.error("Error rendering EJS template:", err);
+        return res.status(500).send("An error occurred with EJS template");
+      }
+      res.send(html);
+    });
+
   } catch (err) {
     console.error(err);
     res.status(500).send("An error occurred");
