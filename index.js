@@ -112,75 +112,138 @@ app.get("/", async (req, res) => {
 });
 
 const ejsContext = {
-  logoUrl: "https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg", // URL de ejemplo
+  logoUrl:
+    "https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg", // URL de ejemplo
   aplication_number: "APP-00123",
   balance_number: "BLC-00456",
   data_wallet: {
     client_name: "Cliente de Prueba S.A.S.",
     client_id: "900.123.456-7",
-    date: new Date().toLocaleDateString('es-CO'),
+    date: new Date().toLocaleDateString("es-CO"),
     user_name: "Analista de Cartera",
-    user_email: "analista@empresa.com"
+    user_email: "analista@empresa.com",
   },
   client: {
     name: "Cliente de Prueba S.A.S.",
     nit: "900.123.456-7",
     contact: "Juan Pérez",
     address: "Calle Falsa 123, Bogotá",
-    phone: "300 123 4567"
+    phone: "300 123 4567",
   },
-  observations: "Estas son las observaciones de la aplicación de pago. Se requiere revisión de los ajustes aplicados.",
+  observations:
+    "Estas son las observaciones de la aplicación de pago. Se requiere revisión de los ajustes aplicados.",
   attachments: [
     { name: "Soporte de pago 1", url: "#" },
     { name: "Factura 123", url: "#" },
     { name: "Otro documento", url: "#" },
   ],
   payments: [
-    { type: "Transferencia", bank: "Bancolombia", accountNumber: "123-456-789", document: "DOC-001", paymentDate: "20/06/2025", appliedAmount: "1,500,000" },
-    { type: "Cheque", bank: "Davivienda", accountNumber: "987-654-321", document: "DOC-002", paymentDate: "21/06/2025", appliedAmount: "750,000" },
+    {
+      type: "Transferencia",
+      bank: "Bancolombia",
+      accountNumber: "20455684535",
+      document:
+        "Estas son las observaciones de la aplicación de pago. Se requiere revisión de los ajustes aplicados.Estas son las observaciones de la aplicación de pago. Se requiere revisión de los ajustes aplicados.",
+      paymentDate: "20/06/2025",
+      appliedAmount: "1,500,000",
+      evidenceUrl: "https://example.com/evidence/1",
+    },
+    {
+      type: "Cheque",
+      bank: "Davivienda",
+      accountNumber: "20455684535",
+      document:
+        "DOC-002Estas son las observaciones de la aplicación de pago. Se requiere revisión de los ajustes aplicados.",
+      paymentDate: "21/06/2025",
+      appliedAmount: "750,000",
+      evidenceUrl: "https://example.com/evidence/2",
+    },
   ],
   get totalPayments() {
-      // Usamos un getter para calcular el total dinámicamente
-      const total = this.payments.reduce((sum, p) => sum + parseFloat(p.appliedAmount.replace(/,/g, '')), 0);
-      return total.toLocaleString('es-CO');
+    // Usamos un getter para calcular el total dinámicamente
+    const total = this.payments.reduce(
+      (sum, p) => sum + parseFloat(p.appliedAmount.replace(/,/g, "")),
+      0
+    );
+    return total.toLocaleString("es-CO");
   },
   invoices: [
-      { document: "FV-001", totalValue: "1,000,000", adjustments: "50,000", applied: "950,000", balance: "0" },
-      { document: "FV-002", totalValue: "800,000", adjustments: "0", applied: "800,000", balance: "0" },
-      { document: "FV-003", totalValue: "500,000", adjustments: "100,000", applied: "400,000", balance: "0" },
+    {
+      document: "FV-001",
+      totalValue: "1,000,000",
+      adjustments: "50,000",
+      applied: "950,000",
+      balance: "0",
+    },
+    {
+      document: "FV-002",
+      totalValue: "800,000",
+      adjustments: "0",
+      applied: "800,000",
+      balance: "0",
+    },
+    {
+      document: "FV-003",
+      totalValue: "500,000",
+      adjustments: "100,000",
+      applied: "400,000",
+      balance: "0",
+    },
   ],
   get invoicesTotalValue() {
-    const total = this.invoices.reduce((sum, i) => sum + parseFloat(i.totalValue.replace(/,/g, '')), 0);
-    return total.toLocaleString('es-CO');
+    const total = this.invoices.reduce(
+      (sum, i) => sum + parseFloat(i.totalValue.replace(/,/g, "")),
+      0
+    );
+    return total.toLocaleString("es-CO");
   },
   get invoicesTotalAdjustments() {
-    const total = this.invoices.reduce((sum, i) => sum + parseFloat(i.adjustments.replace(/,/g, '')), 0);
-    return total.toLocaleString('es-CO');
+    const total = this.invoices.reduce(
+      (sum, i) => sum + parseFloat(i.adjustments.replace(/,/g, "")),
+      0
+    );
+    return total.toLocaleString("es-CO");
   },
   get invoicesTotalApplied() {
-    const total = this.invoices.reduce((sum, i) => sum + parseFloat(i.applied.replace(/,/g, '')), 0);
-    return total.toLocaleString('es-CO');
+    const total = this.invoices.reduce(
+      (sum, i) => sum + parseFloat(i.applied.replace(/,/g, "")),
+      0
+    );
+    return total.toLocaleString("es-CO");
   },
   get invoicesTotalBalance() {
-    const total = this.invoices.reduce((sum, i) => sum + parseFloat(i.balance.replace(/,/g, '')), 0);
-    return total.toLocaleString('es-CO');
+    const total = this.invoices.reduce(
+      (sum, i) => sum + parseFloat(i.balance.replace(/,/g, "")),
+      0
+    );
+    return total.toLocaleString("es-CO");
   },
   adjustments: [
-    { origin: "Diferencia de Precio", observations: "Se ajusta precio según acuerdo.", value: "50,000" },
-    { origin: "Descuento Pronto Pago", observations: "Aplica DPP factura FV-003.", value: "100,000" },
+    {
+      origin: "Diferencia de Precio",
+      observations: "Se ajusta precio según acuerdo.",
+      value: "50,000",
+    },
+    {
+      origin: "Descuento Pronto Pago",
+      observations: "Aplica DPP factura FV-003.",
+      value: "100,000",
+    },
   ],
   get totalAdjustments() {
-    const total = this.adjustments.reduce((sum, a) => sum + parseFloat(a.value.replace(/,/g, '')), 0);
-    return total.toLocaleString('es-CO');
-  }
+    const total = this.adjustments.reduce(
+      (sum, a) => sum + parseFloat(a.value.replace(/,/g, "")),
+      0
+    );
+    return total.toLocaleString("es-CO");
+  },
 };
-
 
 // 3. Creamos la nueva ruta /template que renderiza el archivo .ejs
 app.get("/template", async (req, res) => {
   try {
     const templatePath = path.join(__dirname, "views", "payment_template.ejs");
-    
+
     // EJS tiene un método renderFile que es muy conveniente.
     // Le pasamos la ruta, el objeto de datos, y un callback.
     ejs.renderFile(templatePath, ejsContext, (err, html) => {
@@ -190,7 +253,6 @@ app.get("/template", async (req, res) => {
       }
       res.send(html);
     });
-
   } catch (err) {
     console.error(err);
     res.status(500).send("An error occurred");

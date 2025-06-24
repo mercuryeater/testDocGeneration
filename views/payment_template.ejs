@@ -15,7 +15,7 @@
         color: #333;
         margin: 0;
         padding: 20px;
-        background-color: #f4f4f4;
+        background-color: #f7f7f7;
         font-size: 12px;
       }
 
@@ -33,7 +33,6 @@
         background-color: #fff;
         padding: 25px;
         border-radius: 8px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
       }
 
       .header-container {
@@ -144,10 +143,38 @@
 
       .payments-table th {
         font-weight: 600;
-        color: #666;
+        color: #bababa;
+      }
+
+      .payments-table th:nth-child(3),
+      .payments-table td:nth-child(3) {
+        width: 40%; /* O el porcentaje que prefieras. La columna "Documento" ahora ocupará el 40% del ancho total de la tabla. */
       }
 
       .payments-table tr:last-child td {
+        border-bottom: none;
+      }
+
+      .invoices-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 8px;
+        border-radius: 8px;
+      }
+
+      .invoices-table th,
+      .invoices-table td {
+        text-align: left;
+        padding: 12px;
+        border-bottom: 1px solid #e0e0e0;
+      }
+
+      .invoices-table th {
+        font-weight: 600;
+        color: #bababa;
+      }
+
+      .invoices-table tr:last-child td {
         border-bottom: none;
       }
 
@@ -208,7 +235,7 @@
       .info-container {
         display: flex;
         justify-content: space-between;
-        align-items: flex-start;
+        align-items: center;
       }
 
       .cashport-button {
@@ -222,6 +249,23 @@
         text-decoration: none;
         font-size: 14px;
       }
+
+      .boldText {
+        font-weight: bold;
+      }
+
+      .eye-icon-link {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #f7f7f7;
+        padding: 4px;
+        border-radius: 4px;
+      }
+
+      .money {
+        text-align: right !important;
+      }
     </style>
   </head>
   <body>
@@ -234,29 +278,13 @@
               <img src="<%= logoUrl %>" alt="Company Logo" class="logo-img" />
             </div>
             <div class="company-info">
-              <!-- section aplicationNumber -->
-              <p>Aplicacion de pago. <%=aplication_number%></p>
-              <!-- end section aplicationNumber -->
-              <p><%= data_wallet.client_name %></p>
-              <p>NIT. <%= data_wallet.client_id %></p>
-              <!-- section balanceNumber -->
-                <p>Legalización de saldos # <%=balance_number%></p>
-              <!-- end section balanceNumber -->
-            </div>
-          </div>
-          <div class="user-info">
-            <div>
+              <p class="boldText">Aplicacion de pago. <%=aplication_number%></p>
               <p class="date-user-info"><%= data_wallet.date %></p>
-            </div>
-            <div>
-              <p class="date-user-info"><%= data_wallet.user_name %></p>
-            </div>
-            <div>
               <p class="date-user-info">
-                <a href="<%= data_wallet.user_email %>"
-                  ><%= data_wallet.user_email %></a
-                >
+                Hecho por <%= data_wallet.user_name %>
               </p>
+
+              <!-- <p>Legalización de saldos # <%=balance_number%></p> -->
             </div>
           </div>
         </section>
@@ -277,18 +305,12 @@
                 <label>Contacto</label>
                 <span><%= client.contact %></span>
               </div>
-              <div class="info-item">
-                <label>Dirección</label>
-                <span><%= client.address %></span>
-              </div>
-              <div class="info-item">
-                <label>Teléfono</label>
-                <span><%= client.phone %></span>
-              </div>
             </div>
           </section>
 
-          <a href="#" class="cashport-button">Ir a Cashport</a>
+          <a href="https://cashport.ai/" target="_blank" class="cashport-button"
+            >Ir a Cashport</a
+          >
         </div>
       </div>
       <!-- Tercer contenedor: Observaciones y Adjuntos -->
@@ -310,13 +332,12 @@
 
       <!-- section pagos -->
       <!-- Cuarto contenedor: Pagos -->
-      <div class="container-paper" style="margin-bottom: 140px">
+      <div class="container-paper">
         <section>
           <h2 class="section-title">Pagos</h2>
           <table class="payments-table">
             <thead>
               <tr>
-                <th>Tipo pago</th>
                 <th>Banco</th>
                 <th>No. Cuenta</th>
                 <th>Documento</th>
@@ -328,24 +349,30 @@
             <tbody>
               <% payments.forEach(function(payment) { %>
               <tr>
-                <td><%= payment.type %></td>
                 <td><%= payment.bank %></td>
                 <td><%= payment.accountNumber %></td>
                 <td><%= payment.document %></td>
                 <td><%= payment.paymentDate %></td>
-                <td>$<%= payment.appliedAmount %></td>
+                <td class="money">$<%= payment.appliedAmount %></td>
                 <td>
-                  <svg
-                    class="eye-icon"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
+                  <a
+                    href="<%= payment.evidenceUrl %>"
+                    class="eye-icon-link"
+                    title="Ver evidencia del Pago"
+                    target="_blank"
                   >
-                    <path
-                      d="M12 5C7 5 2.73 8.11 1 12.5C2.73 16.89 7 20 12 20C17 20 21.27 16.89 23 12.5C21.27 8.11 17 5 12 5ZM12 17.5C9.24 17.5 7 15.26 7 12.5C7 9.74 9.24 7.5 12 7.5C14.76 7.5 17 9.74 17 12.5C17 15.26 14.76 17.5 12 17.5ZM12 9.5C10.34 9.5 9 10.84 9 12.5C9 14.16 10.34 15.5 12 15.5C13.66 15.5 15 14.16 15 12.5C15 10.84 13.66 9.5 12 9.5Z"
-                      fill="#666"
-                    />
-                  </svg>
+                    <svg
+                      class="eye-icon"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M12 5C7 5 2.73 8.11 1 12.5C2.73 16.89 7 20 12 20C17 20 21.27 16.89 23 12.5C21.27 8.11 17 5 12 5ZM12 17.5C9.24 17.5 7 15.26 7 12.5C7 9.74 9.24 7.5 12 7.5C14.76 7.5 17 9.74 17 12.5C17 15.26 14.76 17.5 12 17.5ZM12 9.5C10.34 9.5 9 10.84 9 12.5C9 14.16 10.34 15.5 12 15.5C13.66 15.5 15 14.16 15 12.5C15 10.84 13.66 9.5 12 9.5Z"
+                        fill="#666"
+                      />
+                    </svg>
+                  </a>
                 </td>
               </tr>
               <% }); %>
@@ -362,34 +389,42 @@
       <div class="container-paper">
         <section>
           <h2 class="section-title">Facturas</h2>
-          <table class="payments-table">
+          <table class="invoices-table">
             <thead>
               <tr>
                 <th>Documento</th>
-                <th>Valor Total</th>
-                <th>Ajustes</th>
-                <th>Aplicado</th>
-                <th>Saldo</th>
+                <th class="money">Valor Total</th>
+                <th class="money">Ajustes</th>
+                <th class="money">Aplicado</th>
+                <th class="money">Saldo</th>
               </tr>
             </thead>
             <tbody>
               <% invoices.forEach(function(invoice) { %>
               <tr>
                 <td><%= invoice.document %></td>
-                <td>$<%= invoice.totalValue %></td>
-                <td>$<%= invoice.adjustments %></td>
-                <td>$<%= invoice.applied %></td>
-                <td>$<%= invoice.balance %></td>
+                <td class="money">$<%= invoice.totalValue %></td>
+                <td class="money">$<%= invoice.adjustments %></td>
+                <td class="money">$<%= invoice.applied %></td>
+                <td class="money">$<%= invoice.balance %></td>
               </tr>
               <% }); %>
             </tbody>
             <tfoot class="table-footer">
               <tr>
                 <td></td>
-                <td><strong>$<%= invoicesTotalValue %></strong></td>
-                <td><strong>$<%= invoicesTotalAdjustments %></strong></td>
-                <td><strong>$<%= invoicesTotalApplied %></strong></td>
-                <td><strong>$<%= invoicesTotalBalance %></strong></td>
+                <td class="money">
+                  <strong>$<%= invoicesTotalValue %></strong>
+                </td>
+                <td class="money">
+                  <strong>$<%= invoicesTotalAdjustments %></strong>
+                </td>
+                <td class="money">
+                  <strong>$<%= invoicesTotalApplied %></strong>
+                </td>
+                <td class="money">
+                  <strong>$<%= invoicesTotalBalance %></strong>
+                </td>
               </tr>
             </tfoot>
           </table>
