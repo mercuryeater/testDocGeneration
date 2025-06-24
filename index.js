@@ -391,6 +391,46 @@ app.get("/generate-pdf", async (req, res) => {
   }
 });
 
+app.get("/generate-pdf-ejs", async (req, res) => {
+  try {
+    const templatePath = path.join(__dirname, "views", "payment_template.ejs");
+    const html = await ejs.renderFile(templatePath, ejsContext);
+
+    const browser = await puppeteer.launch({
+      headless: true,
+      args: ["--no-sandbox", "--disable-setuid-sandbox"],
+    });
+    const page = await browser.newPage();
+    await page.setContent(html, {
+      waitUntil: "networkidle0",
+    });
+
+    const bodyHeight = await page.evaluate(() => {
+      return document.body.scrollHeight;
+    });
+
+    const pdfBuffer = await page.pdf({
+      width: "216mm",
+      height: `${bodyHeight}px`,
+      printBackground: true,
+      margin: { top: "0mm", right: "0mm", bottom: "0mm", left: "0mm" },
+    });
+
+    await browser.close();
+
+    res.setHeader("Content-Type", "application/pdf");
+    res.setHeader(
+      "Content-Disposition",
+      'attachment; filename="generated.pdf"'
+    );
+    res.setHeader("Content-Length", pdfBuffer.length);
+    res.end(pdfBuffer);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("PDF generation failed");
+  }
+});
+
 // Start the server
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
