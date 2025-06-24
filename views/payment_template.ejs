@@ -43,18 +43,17 @@
 
       .logo-container {
         display: inline-flex;
-        justify-content: center;
         align-items: center;
-        width: 140px;
-        height: 70px;
+        max-width: 400px;
+        height: 100px;
       }
 
       .logo-img {
         max-width: 100%;
         max-height: 100%;
-        min-width: 120px;
-        min-height: 60px;
-        object-fit: contain;
+        width: auto;
+        height: auto;
+        object-fit: fill;
       }
       .header-section {
         margin-bottom: 1rem;
@@ -180,7 +179,6 @@
 
       .table-footer {
         text-align: right;
-        font-weight: 600;
         padding: 10px;
         border-radius: 8px;
         background-color: #f7f7f7;
@@ -195,10 +193,34 @@
       .adjustments-table {
         width: 100%;
         border-collapse: collapse;
+
+        .differences {
+          width: 30%;
+        }
+
+        .observations {
+          width: 50%;
+        }
+
+        .value {
+          width: 20%;
+          text-align: right;
+        }
+      }
+
+      .adjustments-table th {
+        font-weight: 600;
+        color: #bababa;
+      }
+
+      .adjustments-table th,
+      .adjustments-table td {
+        text-align: left;
+        padding: 12px;
+        border-bottom: 1px solid #e0e0e0;
       }
 
       .adjustments-table td {
-        padding: 8px 0;
         vertical-align: top;
       }
 
@@ -379,7 +401,8 @@
             </tbody>
           </table>
           <div class="table-footer">
-            Total (<%= payments.length %>) $<%= totalPayments %>
+            Total (<%= payments.length %>)
+            <strong>$<%= totalPayments %> </strong>
           </div>
         </section>
       </div>
@@ -437,15 +460,15 @@
           <table class="adjustments-table">
             <thead>
               <tr>
-                <th style="width: 30%">Origen Diferencia</th>
-                <th style="width: 50%">Observaciones</th>
-                <th style="width: 20%; text-align: right">Valor</th>
+                <th class="differences">Origen Diferencia</th>
+                <th class="observations">Observaciones</th>
+                <th class="value">Valor</th>
               </tr>
             </thead>
             <tbody>
               <% adjustments.forEach(function(adjustment) { %>
               <tr>
-                <td style="font-weight: 600"><%= adjustment.origin %></td>
+                <td><%= adjustment.origin %></td>
                 <td><%= adjustment.observations %></td>
                 <td style="text-align: right">$<%= adjustment.value %></td>
               </tr>
