@@ -4,85 +4,16 @@ const puppeteer = require("puppeteer");
 const ejs = require("ejs"); // <--- 1. Requerimos EJS
 const fs = require("fs");
 const path = require("path");
+const {
+  context,
+  ejsContext,
+  digitalRecordData,
+} = require("./mockData/mockData.js");
 
 const app = express();
 
 // Serve static files
 app.use(express.static("public"));
-const context = {
-  logoUrl: "/images/galderma-logo.png", // Asegúrate de que esta ruta sea correcta
-  establishedYear: "1981",
-  companyName: "Galderma de Colombia S.A",
-  tin: "830012269-7",
-  sentBy: "Maria Camila Osorio",
-  sentTo: "Miguel Martinez and Mateo Robayo",
-  observations:
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In sed mollis dui. Duis pharetra viverra blandit. Suspendisse ornare, sem in porta porta, velit justo volutpat ipsum.",
-  attachments: [
-    { name: "Payment voucher 1", url: "#" },
-    { name: "Payment voucher 2", url: "#" },
-  ],
-  totalPortfolio: "175.230",
-  overduePortfolio: "34.230",
-  overduePortfolioPercentage: "12",
-  budget: "54.540",
-  appliedCollection: "12.700",
-  appliedCollectionPercentage: "12",
-  unappliedPayments: "3.567",
-  unappliedPaymentsPercentage: "12",
-  creditLimit: "2.250",
-  creditLimitPercentage: "12",
-  dso: "75",
-  invoiceStatus: [
-    { label: "Unreconciled", amount: "54.950", count: "957" },
-    { label: "Reconciled", amount: "48.410", count: "845" },
-    { label: "Balances", amount: "39.350", count: "346" },
-  ],
-  alerts: [
-    { label: "Open Novelties", amount: "26.370", count: "765" },
-    { label: "Available DPP", amount: "29.680", count: "628" },
-    { label: "Available CN", amount: "30.945", count: "751" },
-  ],
-  portfolioAges1: [
-    { age: "Current", amount: "200,000,000", percentage: "12" },
-    { age: "30 days", amount: "200,000,000", percentage: "12" },
-    { age: "60 days", amount: "200,000,000", percentage: "12" },
-  ],
-  portfolioAges2: [
-    { age: "90 days", amount: "200,000,000", percentage: "12" },
-    { age: "120 days", amount: "200,000,000", percentage: "12" },
-    { age: "+ 120 days", amount: "200,000,000", percentage: "12" },
-  ],
-  novelties: [
-    { type: "Price differences", invoices: "5", pending: "35,700,900.00" },
-    { type: "Filed out of dates", invoices: "6", pending: "35,700,900.00" },
-    { type: "Delivery issues", invoices: "32", pending: "35,700,900.00" },
-  ],
-  totalNovelties: "340",
-  totalNoveltiesAmount: "35,700,900.0",
-  paymentAgreements: [
-    {
-      id: "328432",
-      date: "07/31/2023",
-      invoices: "5",
-      pending: "35,700,900.00",
-    },
-    {
-      id: "328433",
-      date: "07/31/2023",
-      invoices: "6",
-      pending: "35,700,900.00",
-    },
-    {
-      id: "328434",
-      date: "07/31/2023",
-      invoices: "32",
-      pending: "35,700,900.00",
-    },
-  ],
-  totalAgreements: "340",
-  totalAgreementsAmount: "35,700,900.0",
-};
 
 // Function to compile and render the template
 function renderTemplate(templatePath, context) {
@@ -111,134 +42,6 @@ app.get("/", async (req, res) => {
   }
 });
 
-const ejsContext = {
-  logoUrl:
-    "https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg", // URL de ejemplo
-  aplication_number: "APP-00123",
-  balance_number: "BLC-00456",
-  data_wallet: {
-    client_name: "Cliente de Prueba S.A.S.",
-    client_id: "900.123.456-7",
-    date: new Date().toLocaleDateString("es-CO"),
-    user_name: "Analista de Cartera",
-    user_email: "analista@empresa.com",
-  },
-  client: {
-    name: "Cliente de Prueba S.A.S.",
-    nit: "900.123.456-7",
-    contact: "Juan Pérez",
-    address: "Calle Falsa 123, Bogotá",
-    phone: "300 123 4567",
-  },
-  observations:
-    "Estas son las observaciones de la aplicación de pago. Se requiere revisión de los ajustes aplicados.",
-  attachments: [
-    { name: "Soporte de pago 1", url: "#" },
-    { name: "Factura 123", url: "#" },
-    { name: "Otro documento", url: "#" },
-  ],
-  payments: [
-    {
-      type: "Transferencia",
-      bank: "Bancolombia",
-      accountNumber: "20455684535",
-      document:
-        "Estas son las observaciones de la aplicación de pago. Se requiere revisión de los ajustes aplicados.Estas son las observaciones de la aplicación de pago. Se requiere revisión de los ajustes aplicados.",
-      paymentDate: "20/06/2025",
-      appliedAmount: "1,500,000",
-      evidenceUrl: "https://example.com/evidence/1",
-    },
-    {
-      type: "Cheque",
-      bank: "Davivienda",
-      accountNumber: "20455684535",
-      document:
-        "DOC-002Estas son las observaciones de la aplicación de pago. Se requiere revisión de los ajustes aplicados.",
-      paymentDate: "21/06/2025",
-      appliedAmount: "750,000",
-      evidenceUrl: "https://example.com/evidence/2",
-    },
-  ],
-  get totalPayments() {
-    // Usamos un getter para calcular el total dinámicamente
-    const total = this.payments.reduce(
-      (sum, p) => sum + parseFloat(p.appliedAmount.replace(/,/g, "")),
-      0
-    );
-    return total.toLocaleString("es-CO");
-  },
-  invoices: [
-    {
-      document: "FV-001",
-      totalValue: "1,000,000",
-      adjustments: "50,000",
-      applied: "950,000",
-      balance: "0",
-    },
-    {
-      document: "FV-002",
-      totalValue: "800,000",
-      adjustments: "0",
-      applied: "800,000",
-      balance: "0",
-    },
-    {
-      document: "FV-003",
-      totalValue: "500,000",
-      adjustments: "100,000",
-      applied: "400,000",
-      balance: "0",
-    },
-  ],
-  get invoicesTotalValue() {
-    const total = this.invoices.reduce(
-      (sum, i) => sum + parseFloat(i.totalValue.replace(/,/g, "")),
-      0
-    );
-    return total.toLocaleString("es-CO");
-  },
-  get invoicesTotalAdjustments() {
-    const total = this.invoices.reduce(
-      (sum, i) => sum + parseFloat(i.adjustments.replace(/,/g, "")),
-      0
-    );
-    return total.toLocaleString("es-CO");
-  },
-  get invoicesTotalApplied() {
-    const total = this.invoices.reduce(
-      (sum, i) => sum + parseFloat(i.applied.replace(/,/g, "")),
-      0
-    );
-    return total.toLocaleString("es-CO");
-  },
-  get invoicesTotalBalance() {
-    const total = this.invoices.reduce(
-      (sum, i) => sum + parseFloat(i.balance.replace(/,/g, "")),
-      0
-    );
-    return total.toLocaleString("es-CO");
-  },
-  adjustments: [
-    {
-      origin: "Diferencia de Precio",
-      observations: "Se ajusta precio según acuerdo.",
-      value: "50,000",
-    },
-    {
-      origin: "Descuento Pronto Pago",
-      observations: "Aplica DPP factura FV-003.",
-      value: "100,000",
-    },
-  ],
-  get totalAdjustments() {
-    const total = this.adjustments.reduce(
-      (sum, a) => sum + parseFloat(a.value.replace(/,/g, "")),
-      0
-    );
-    return total.toLocaleString("es-CO");
-  },
-};
-
 // 3. Creamos la nueva ruta /template que renderiza el archivo .ejs
 app.get("/template", async (req, res) => {
   try {
@@ -257,6 +60,74 @@ app.get("/template", async (req, res) => {
     console.error(err);
     res.status(500).send("An error occurred");
   }
+});
+
+// Nueva ruta para el digital record
+app.get("/digital-record", async (req, res) => {
+  try {
+    const templatePath = path.join(
+      __dirname,
+      "views",
+      "template_digital_record.ejs"
+    );
+
+    // Renderizar el template EJS con los datos mockeados
+    ejs.renderFile(templatePath, digitalRecordData, (err, html) => {
+      if (err) {
+        console.error("Error rendering Digital Record template:", err);
+        return res
+          .status(500)
+          .send("An error occurred with Digital Record template");
+      }
+      res.send(html);
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("An error occurred");
+  }
+});
+
+// Ruta de debug para verificar que las fuentes se cargan
+app.get("/font-test", (req, res) => {
+  res.send(`
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+      <style>
+        body { 
+          font-family: 'Poppins', sans-serif; 
+          padding: 20px;
+        }
+        .arial { font-family: Arial, sans-serif; }
+        .poppins { font-family: 'Poppins', sans-serif; }
+        .test { 
+          margin: 20px 0;
+          padding: 10px;
+          border: 1px solid #ccc;
+        }
+      </style>
+    </head>
+    <body>
+      <h1>Test de Fuentes</h1>
+      <div class="test arial">
+        <strong>Arial:</strong> Este texto está en Arial
+      </div>
+      <div class="test poppins">
+        <strong>Poppins:</strong> Este texto debería estar en Poppins
+      </div>
+      <div class="test" style="font-weight: 300;">
+        <strong>Poppins Light (300):</strong> Texto ligero
+      </div>
+      <div class="test" style="font-weight: 500;">
+        <strong>Poppins Medium (500):</strong> Texto medio
+      </div>
+      <div class="test" style="font-weight: 700;">
+        <strong>Poppins Bold (700):</strong> Texto en negrita
+      </div>
+    </body>
+    </html>
+  `);
 });
 
 // Route to generate PDF

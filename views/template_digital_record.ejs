@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Estado de Cuenta</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      .header-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      h3,
+      p {
+        margin: 0;
+      }
+
+      body {
+        font-family: Arial, sans-serif;
+        line-height: 1.6;
+        color: #333;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 16px;
+        font-size: 12px;
+      }
+
+      .container-paper {
+        width: 100%;
+        max-width: 750px;
+        margin: 0 auto;
+        background-color: #fff;
+        padding: 15px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .container {
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+        gap: 10px;
+      }
+
+      header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 30px;
+      }
+
+      .payment-agreement_container {
+        margin-top: 10px;
+      }
+
+      .logo {
+        font-size: 28px;
+        font-weight: 700;
+        letter-spacing: 2px;
+      }
+
+      .est-year {
+        font-size: 12px;
+        margin-top: -5px;
+      }
+
+      .company-info {
+        text-align: right;
+        font-size: 14px;
+      }
+
+      .info-group {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        margin-bottom: 24px;
+      }
+
+      .info-item {
+        display: flex;
+        align-items: center;
+      }
+
+      .info-item label {
+        font-weight: 700;
+        margin-right: 8px;
+        min-width: 100px;
+      }
+
+      .separator {
+        height: 1px;
+        background-color: #e0e0e0;
+        margin: 16px 0;
+      }
+      .separator-small {
+        height: 1px;
+        background-color: #f7f7f7;
+        margin: 8px 0;
+      }
+
+      .section {
+        margin-bottom: 24px;
+      }
+
+      .section-content {
+        line-height: 1.5;
+      }
+
+      .attachments a {
+        color: #007bff;
+        text-decoration: none;
+      }
+
+      .attachments a:hover {
+        text-decoration: underline;
+      }
+
+      .form-group {
+        margin-bottom: 15px;
+      }
+
+      .form-group label {
+        font-weight: 700;
+        display: inline-block;
+        margin-right: 10px;
+      }
+
+      .form-group span {
+        font-weight: 400;
+      }
+
+      .attachments a {
+        color: #06c;
+        text-decoration: none;
+      }
+
+      .attachments a:hover {
+        text-decoration: underline;
+      }
+
+      .parent {
+        display: grid;
+        grid-template-columns: repeat(8, 1fr);
+        grid-template-rows: auto;
+        gap: 10px;
+      }
+
+      .div1,
+      .div2,
+      .div3,
+      .div4,
+      .div5,
+      .div6,
+      .div7,
+      .div8,
+      .div9 {
+        background-color: #f7f7f7;
+        padding: 5px 10px;
+        border-radius: 5px;
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+      }
+
+      .div1 {
+        grid-area: 1/1/2/3;
+      }
+
+      .div2 {
+        grid-area: 1/3/2/5;
+      }
+
+      .div3 {
+        grid-area: 1/5/2/7;
+      }
+
+      .div4 {
+        grid-area: 1/7/3/9;
+      }
+
+      .div5 {
+        grid-area: 3/7/4/9;
+      }
+
+      .div6 {
+        grid-area: 4/7/5/9;
+        background-color: #cbe71e;
+        text-align: center;
+        padding: 8px;
+        border-radius: 8px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .div7 {
+        grid-area: 2/1/5/4;
+      }
+
+      .div8 {
+        grid-area: 2/4/5/7;
+      }
+
+      .div9 {
+        grid-area: 5/1/7/9;
+      }
+
+      h1 {
+        margin-top: 0;
+      }
+
+      .financial-wrapper {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .monto {
+        font-weight: 700;
+        font-size: 1.2em;
+      }
+
+      .porcentaje {
+        color: #666;
+        font-size: small;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+
+      td,
+      th {
+        text-align: left;
+        padding: 5px;
+      }
+
+      h3 {
+        margin-top: 5px;
+        font-size: 14px;
+        font-weight: 300;
+        line-height: 8px;
+        text-align: left;
+      }
+
+      .div6 h3 {
+        font-size: 18px;
+        font-weight: 200;
+        margin: 0;
+      }
+
+      .div6 p {
+        font-size: 24px;
+        font-weight: 400;
+      }
+
+      .title {
+        font-size: 12px;
+        font-weight: 700;
+        margin-bottom: 15px;
+      }
+
+      .financial-title {
+        font-size: 12px;
+        font-weight: 400;
+        color: #555;
+      }
+
+      .financial-amount {
+        font-size: 12px;
+        font-weight: 400;
+        color: #000;
+      }
+
+      .financial-million {
+        font-size: 16px;
+        font-weight: 400;
+        color: #555;
+      }
+
+      .status-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 10px;
+      }
+
+      .financial-details {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+      }
+
+      .financial-item {
+        margin-bottom: 15px;
+      }
+
+      .status-item {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        grid-template-rows: auto auto;
+        align-items: center;
+      }
+
+      .financial-title-box {
+        font-size: 14px;
+        font-weight: 400;
+        color: #555;
+        margin-bottom: 8px;
+      }
+
+      .status-label {
+        font-size: 14px;
+        color: #555;
+        grid-column: 1/2;
+        grid-row: 1/2;
+      }
+
+      .status-amount {
+        font-size: 16px;
+        font-weight: 400;
+        grid-column: 1/2;
+        grid-row: 2/3;
+      }
+
+      .status-count {
+        font-size: 12px;
+        color: #666;
+        grid-column: 2/3;
+        grid-row: 2/4;
+        align-self: center;
+      }
+
+      .alerts-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 10px;
+      }
+
+      .alert-item {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        grid-template-rows: auto auto;
+        align-items: center;
+      }
+
+      .alert-label {
+        font-size: 14px;
+        color: #555;
+        grid-column: 1/2;
+        grid-row: 1/2;
+      }
+
+      .alert-amount {
+        font-size: 16px;
+        font-weight: 400;
+        grid-column: 1/2;
+        grid-row: 2/3;
+      }
+
+      .alert-count {
+        font-size: 12px;
+        color: #666;
+        grid-column: 2/3;
+        grid-row: 2/4;
+        align-self: center;
+      }
+
+      .portfolio-ages {
+        background-color: #f7f7f7;
+        padding: 10px;
+        border-radius: 8px;
+        margin-top: 10px;
+      }
+
+      .portfolio-ages_title {
+        font-size: 14px;
+        font-weight: 400;
+        margin-bottom: 12px;
+      }
+
+      .portfolio-agestables-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 10px;
+      }
+
+      .portfolio-agestable {
+        width: calc(50% - 11px);
+        border-collapse: separate;
+        border-spacing: 0;
+      }
+
+      .portfolio-agesseparator {
+        width: 1px;
+        background-color: #e0e0e0;
+        align-self: stretch;
+      }
+
+      .portfolio-agescell,
+      .portfolio-agesheader {
+        padding: 6px 8px;
+        text-align: left;
+        border-bottom: 1px solid #e0e0e0;
+      }
+
+      .portfolio-agesheader {
+        font-weight: 700;
+        color: #555;
+      }
+
+      .portfolio-agestable tbody tr:last-child .portfolio-agescell {
+        border-bottom: none;
+      }
+
+      .portfolio-agescell--age {
+        font-weight: 700;
+      }
+
+      .portfolio-agescell--amount,
+      .portfolio-agescell--percentage,
+      .portfolio-agesheader--amount,
+      .portfolio-agesheader--percentage {
+        text-align: right;
+      }
+
+      .portfolio-agescell--amount {
+        font-weight: 400;
+      }
+
+      .portfolio-agescell--percentage {
+        color: #666;
+      }
+
+      .novelties {
+        margin-top: 40px;
+      }
+
+      .noveltiestitle {
+        font-size: 12px;
+        font-weight: 700;
+        margin-bottom: 15px;
+      }
+
+      .noveltiestable {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0;
+      }
+
+      .noveltiesheader {
+        font-weight: 400;
+        color: #888;
+        text-align: left;
+        padding: 10px 15px;
+        border-bottom: 1px solid #e0e0e0;
+      }
+
+      .noveltiescell {
+        padding: 15px;
+        border-bottom: 1px solid #e0e0e0;
+      }
+
+      .noveltiesrow:last-child .noveltiescell {
+        border-bottom: none;
+      }
+
+      .noveltiescell--type {
+        font-weight: 700;
+      }
+
+      .noveltiescell--invoices {
+        text-align: center;
+      }
+
+      .noveltiescell--pending,
+      .noveltiesheader--pending {
+        text-align: right;
+      }
+
+      .noveltiestotal {
+        background-color: #f7f7f7;
+        padding: 10px;
+        border-radius: 8px;
+        margin-top: 20px;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+      }
+
+      .noveltiestotal-text {
+        font-weight: 700;
+        margin-right: 15px;
+      }
+
+      .noveltiestotal-amount {
+        font-weight: 700;
+        font-size: 16px;
+      }
+
+      .payment-agreement {
+        background-color: #fff;
+        border-radius: 8px;
+        padding: 20px;
+        width: 100%;
+        max-width: 850px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      .payment-agreementtitle {
+        font-size: 12px;
+        font-weight: 700;
+        margin-bottom: 15px;
+      }
+
+      .payment-agreementtable {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0;
+      }
+
+      .payment-agreementheader {
+        font-weight: 400;
+        color: #888;
+        text-align: left;
+        padding: 10px 15px;
+        border-bottom: 1px solid #e0e0e0;
+      }
+
+      .payment-agreementcell {
+        padding: 15px;
+        border-bottom: 1px solid #e0e0e0;
+      }
+
+      .payment-agreementrow:last-child .payment-agreementcell {
+        border-bottom: none;
+      }
+
+      .payment-agreementcell--id {
+        color: #007bff;
+      }
+
+      .payment-agreementlink {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .payment-agreementlink:hover {
+        text-decoration: underline;
+      }
+
+      .payment-agreementcell--invoices {
+        text-align: center;
+      }
+
+      .payment-agreementcell--pending,
+      .payment-agreementheader--pending {
+        text-align: right;
+      }
+
+      .payment-agreementtotal {
+        background-color: #f7f7f7;
+        padding: 10px;
+        border-radius: 8px;
+        margin-top: 20px;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+      }
+
+      .payment-agreementtotal-text {
+        font-weight: 700;
+        margin-right: 15px;
+      }
+
+      .payment-agreementtotal-amount {
+        font-weight: 700;
+        font-size: 16px;
+      }
+
+      .container-logo {
+        display: flex;
+        width: 100%;
+        max-width: 750px;
+        justify-content: flex-end;
+        align-items: center;
+        margin-top: 20px;
+        margin-bottom: 20px;
+      }
+      .logo-container {
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        width: 140px;
+        height: 70px;
+      }
+      .logo-img {
+        max-width: 100%;
+        max-height: 100%;
+        min-width: 120px;
+        min-height: 60px;
+        object-fit: contain;
+      }
+      .portfolio-agestitle {
+        font-size: 12px;
+        margin-top: 5px;
+        font-weight: 300;
+        line-height: 8px;
+        text-align: left;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="container-paper">
+        <div class="header-container">
+          <div class="logo-container">
+            <img src="<%= logoUrl %>" alt="Company Logo" class="logo-img" />
+          </div>
+          <div class="company-info">
+            <p><%= data_wallet.client_name %></p>
+            <p>NIT. <%= data_wallet.client_id %></p>
+            <p><%= date %></p>
+          </div>
+        </div>
+      </div>
+      <div class="container-paper">
+        <main>
+          <div class="info-group">
+            <div class="info-item">
+              <label>Enviado por</label><span> <%= sentBy %> </span>
+            </div>
+            <div class="info-item">
+              <label>Enviado a</label><span> <%= sentTo %> </span>
+            </div>
+          </div>
+          <div class="separator-small"></div>
+          <div class="section">
+            <div class="info-item"><label>Observaciones</label></div>
+            <p class="section-content"><%= observations %></p>
+          </div>
+          <div class="separator-small"></div>
+          <div>
+            <div class="info-item"><label>Adjuntos</label></div>
+            <div class="attachments">
+              <% attachments.forEach(function(attachment, index) { %>
+              <a href="<%= attachment.url %>"> <%= attachment.name %> </a>
+              <% if (index < attachments.length - 1) { %>, <% } %> <% }); %>
+            </div>
+          </div>
+        </main>
+      </div>
+      <div class="container-paper">
+        <h1 class="title">Estado de cuenta</h1>
+        <div class="parent">
+          <div class="div1">
+            <p class="financial-title">Total cartera</p>
+            <p class="financial-amount">$<%= data_wallet.total_portfolio%></p>
+          </div>
+          <div class="div2">
+            <div class="financial-wrapper">
+              <p class="financial-title">C. vencida</p>
+              <span class="porcentaje"
+                >(<%= percentages.past_due_percentage %>%)</span
+              >
+            </div>
+            <p class="financial-amount">$<%= data_wallet.past_due_ammount %></p>
+          </div>
+          <div class="div3">
+            <p class="financial-title">Presupuesto</p>
+            <p class="financial-amount">$<%= data_wallet.budget_ammount %></p>
+          </div>
+          <div class="div4">
+            <div class="financial-item">
+              <div class="financial-details">
+                <p class="financial-title">R. aplicado</p>
+                <span class="porcentaje"
+                  >(<%= percentages.applied_payments_percentage %> %)</span
+                >
+              </div>
+              <p class="financial-amount">
+                $<%= data_wallet.applied_payments_amount %>
+              </p>
+            </div>
+            <div class="financial-details">
+              <p class="financial-title">Pagos no ap.</p>
+              <span class="porcentaje"
+                >(<%= percentages.unapplied_payments_percentage %>%)</span
+              >
+            </div>
+            <p class="financial-amount">
+              $<%= data_wallet.unapplied_payments_amount %>
+            </p>
+          </div>
+          <div class="div5">
+            <div class="financial-wrapper">
+              <p class="financial-title">Cupo</p>
+              <span class="porcentaje"
+                >(<%= percentages.quota_percentage %> %)</span
+              >
+            </div>
+            <p class="financial-amount">$<%= quota %></p>
+          </div>
+          <div class="div6">
+            <p class="financial-title">DSO</p>
+            <p class="financial-amount"><%= dso %></p>
+          </div>
+          <div class="div7">
+            <p class="financial-title-box">Estatus de facturas</p>
+            <div class="status-grid">
+              <div class="status-item">
+                <div class="status-label">Sin conciliar</div>
+                <div class="status-amount">
+                  $<%= info_invioce.total_invoice_unreconciled.total_value %>
+                </div>
+                <div class="status-count">
+                  <%= info_invioce.total_invoice_unreconciled.count %>
+                </div>
+              </div>
+              <div class="status-item">
+                <div class="status-label">Conciliadas</div>
+                <div class="status-amount">
+                  $<%= info_invioce.total_invoice_reconciled.total_value %>
+                </div>
+                <div class="status-count">
+                  <%= info_invioce.total_invoice_reconciled.count %>
+                </div>
+              </div>
+              <div class="status-item">
+                <div class="status-label">Saldos</div>
+                <div class="status-amount">
+                  $<%= info_invioce.total_balances.total_value %>
+                </div>
+                <div class="status-count">
+                  <%= info_invioce.total_balances.count %>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="div8">
+            <p class="financial-title-box">Alertas</p>
+            <div class="alerts-grid">
+              <div class="alert-item">
+                <div class="alert-label">Novedades abiertas</div>
+                <div class="alert-amount">
+                  $<%= invoice_alerts.accounting_updates.total_value %>
+                </div>
+                <div class="alert-count">
+                  <%= invoice_alerts.accounting_updates.count %>
+                </div>
+              </div>
+              <div class="alert-item">
+                <div class="alert-label">DPP Disponibles</div>
+                <div class="alert-amount">
+                  $<%= invoice_alerts.financial_discounts.discount.total_value
+                  %>
+                </div>
+                <div class="alert-count">
+                  <%= invoice_alerts.financial_discounts.discount.count %>
+                </div>
+              </div>
+              <div class="alert-item">
+                <div class="alert-label">NC disponibles</div>
+                <div class="alert-amount">
+                  $<%= invoice_alerts.financial_discounts.creditNote.total_value
+                  %>
+                </div>
+                <div class="alert-count">
+                  <%= invoice_alerts.financial_discounts.creditNote.count %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="div9 portfolio-ages">
+          <h3 class="portfolio-agestitle">Edades de la cartera</h3>
+          <div class="portfolio-agestables-container">
+            <table class="portfolio-agestable">
+              <thead>
+                <tr>
+                  <th class="portfolio-agesheader">Edades</th>
+                  <th class="portfolio-agesheader portfolio-agesheader--amount">
+                    Monto
+                  </th>
+                  <th
+                    class="portfolio-agesheader portfolio-agesheader--percentage"
+                  >
+                    %
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <% portfolioAges1.forEach(function(age) { %>
+                <tr>
+                  <td class="portfolio-agescell portfolio-agescell--age">
+                    <%= age.age %>
+                  </td>
+                  <td class="portfolio-agescell portfolio-agescell--amount">
+                    $<%= age.amount %>
+                  </td>
+                  <td class="portfolio-agescell portfolio-agescell--percentage">
+                    <%= age.percentage %>%
+                  </td>
+                </tr>
+                <% }); %>
+              </tbody>
+            </table>
+            <div class="portfolio-agesseparator"></div>
+            <table class="portfolio-agestable">
+              <thead>
+                <tr>
+                  <th class="portfolio-agesheader">Edades</th>
+                  <th class="portfolio-agesheader portfolio-agesheader--amount">
+                    Monto
+                  </th>
+                  <th
+                    class="portfolio-agesheader portfolio-agesheader--percentage"
+                  >
+                    %
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <% portfolioAges2.forEach(function(age) { %>
+                <tr>
+                  <td class="portfolio-agescell portfolio-agescell--age">
+                    <%= age.age %>
+                  </td>
+                  <td class="portfolio-agescell portfolio-agescell--amount">
+                    $<%= age.amount %>
+                  </td>
+                  <td class="portfolio-agescell portfolio-agescell--percentage">
+                    <%= age.percentage %>%
+                  </td>
+                </tr>
+                <% }); %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container-paper novelties">
+      <h3 class="noveltiestitle">Novedades</h3>
+      <table class="noveltiestable">
+        <thead>
+          <tr>
+            <th class="noveltiesheader noveltiesheader--type">
+              Tipo de novedad
+            </th>
+            <th class="noveltiesheader noveltiesheader--invoices">Facturas</th>
+            <th class="noveltiesheader noveltiesheader--pending">Pendiente</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% novelties.forEach(function(novelty) { %>
+          <tr class="noveltiesrow">
+            <td class="noveltiescell noveltiescell--type">
+              <%= novelty.type %>
+            </td>
+            <td class="noveltiescell noveltiescell--invoices">
+              <%= novelty.invoices %>
+            </td>
+            <td class="noveltiescell noveltiescell--pending">
+              $<%= novelty.pending %>
+            </td>
+          </tr>
+          <% }); %>
+        </tbody>
+      </table>
+      <div class="noveltiestotal">
+        <span class="noveltiestotal-text">Total (<%= totalNovelties %>)</span
+        ><span class="noveltiestotal-amount">$<%= totalNoveltiesAmount %></span>
+      </div>
+    </div>
+    <div class="container-paper payment-agreement_container">
+      <h3 class="payment-agreementtitle">Acuerdo de pago</h3>
+      <table class="payment-agreementtable">
+        <thead>
+          <tr>
+            <th class="payment-agreementheader payment-agreementheader--id">
+              ID Acuerdo
+            </th>
+            <th class="payment-agreementheader payment-agreementheader--date">
+              Fecha Acordada
+            </th>
+            <th
+              class="payment-agreementheader payment-agreementheader--invoices"
+            >
+              Facturas
+            </th>
+            <th
+              class="payment-agreementheader payment-agreementheader--pending"
+            >
+              Pendiente
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <% paymentAgreements.forEach(function(agreement) { %>
+          <tr class="payment-agreementrow">
+            <td class="payment-agreementcell payment-agreementcell--id">
+              <a href="#" class="payment-agreementlink">
+                <%= agreement.id %>
+              </a>
+            </td>
+            <td class="payment-agreementcell payment-agreementcell--date">
+              <%= agreement.date %>
+            </td>
+            <td class="payment-agreementcell payment-agreementcell--invoices">
+              <%= agreement.invoices %>
+            </td>
+            <td class="payment-agreementcell payment-agreementcell--pending">
+              $<%= agreement.pending %>
+            </td>
+          </tr>
+          <% }); %>
+        </tbody>
+      </table>
+      <div class="payment-agreementtotal">
+        <span class="payment-agreementtotal-text"
+          >Total (<%= totalAgreements %> )</span
+        ><span class="payment-agreementtotal-amount"
+          >$<%= totalAgreementsAmount %></span
+        >
+      </div>
+    </div>
+  </body>
+</html>
