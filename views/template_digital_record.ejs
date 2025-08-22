@@ -21,7 +21,7 @@
       }
 
       body {
-        font-family: Arial, sans-serif;
+        font-family: "Poppins", Arial, sans-serif;
         line-height: 1.6;
         color: #333;
         background-color: #f4f4f4;
@@ -75,10 +75,7 @@
       }
 
       .info-group {
-        display: flex;
-        flex-direction: column;
-        gap: 16px;
-        margin-bottom: 24px;
+        margin-bottom: 10px;
       }
 
       .info-item {
@@ -89,7 +86,6 @@
       .info-item label {
         font-weight: 700;
         margin-right: 8px;
-        min-width: 100px;
       }
 
       .separator {
@@ -104,7 +100,10 @@
       }
 
       .section {
-        margin-bottom: 24px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        margin-bottom: 10px;
       }
 
       .section-content {
@@ -626,8 +625,8 @@
             <img src="<%= logoUrl %>" alt="Company Logo" class="logo-img" />
           </div>
           <div class="company-info">
-            <p><%= data_wallet.client_name %></p>
-            <p>NIT. <%= data_wallet.client_id %></p>
+            <p></p>
+            <strong>Estado de cuenta</strong>
             <p><%= date %></p>
           </div>
         </div>
@@ -636,10 +635,8 @@
         <main>
           <div class="info-group">
             <div class="info-item">
-              <label>Enviado por</label><span> <%= sentBy %> </span>
-            </div>
-            <div class="info-item">
-              <label>Enviado a</label><span> <%= sentTo %> </span>
+              <label>Cliente</label
+              ><span> <%= data_wallet.client_name %> </span>
             </div>
           </div>
           <div class="separator-small"></div>
@@ -648,7 +645,7 @@
             <p class="section-content"><%= observations %></p>
           </div>
           <div class="separator-small"></div>
-          <div>
+          <div class="section">
             <div class="info-item"><label>Adjuntos</label></div>
             <div class="attachments">
               <% attachments.forEach(function(attachment, index) { %>
