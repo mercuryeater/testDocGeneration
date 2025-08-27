@@ -215,7 +215,7 @@ export const digitalRecordData = {
     budget_ammount: "95,000,000",
     applied_payments_amount: "45,230,000",
     unapplied_payments_amount: "3,450,000",
-    total_billed_amount: "150,000,000",
+    total_invoices: "150,000,000",
   },
 
   // Porcentajes para los indicadores
