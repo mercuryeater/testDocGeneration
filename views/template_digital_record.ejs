@@ -230,10 +230,6 @@
         font-size: 1.2em;
       }
 
-      .porcentaje {
-        font-size: small;
-      }
-
       table {
         width: 100%;
         border-collapse: collapse;
@@ -672,9 +668,6 @@
             <div class="financial-item">
               <div class="financial-details">
                 <p class="financial-title">R. aplicado</p>
-                <span class="porcentaje"
-                  >(<%= percentages.applied_payments_percentage %> %)</span
-                >
               </div>
               <p class="financial-amount">
                 $<%= data_wallet.applied_payments_amount %>
@@ -682,9 +675,6 @@
             </div>
             <div class="financial-details">
               <p class="financial-title">Pagos no ap.</p>
-              <span class="porcentaje"
-                >(<%= percentages.unapplied_payments_percentage %>%)</span
-              >
             </div>
             <p class="financial-amount">
               $<%= data_wallet.unapplied_payments_amount %>
@@ -693,9 +683,6 @@
           <div class="div5">
             <div class="financial-wrapper">
               <p class="financial-title">Cupo</p>
-              <span class="porcentaje"
-                >(<%= percentages.quota_percentage %> %)</span
-              >
             </div>
             <p class="financial-amount">$<%= quota %></p>
           </div>
