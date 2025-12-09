@@ -353,16 +353,17 @@ const newSignalMailData = {
   // Datos de la señal
   signal: {
     pair: "XAU/USD",
-    description: "Uno de nuestros traders vio una gran oportunidad en el mercado, que esperas para tomar su operación en"
+    description:
+      "Uno de nuestros traders vio una gran oportunidad en el mercado, que esperas para tomar su operación en",
   },
 
   // Links
   appUrl: "https://google.com", // Por ahora Google como pidió el usuario
-  instagramUrl: "https://instagram.com/deepcapitals",
-  youtubeUrl: "https://youtube.com/deepcapitals",
+  instagramUrl: "https://instagram.com",
+  youtubeUrl: "https://youtube.com",
 
   // Branding
-  companyName: "DeepCapitals"
+  companyName: "DeepCapitals",
 };
 
 // Exportar todos los datos usando CommonJS
@@ -370,5 +371,5 @@ module.exports = {
   context,
   ejsContext,
   digitalRecordData,
-  newSignalMailData
+  newSignalMailData,
 };
