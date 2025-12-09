@@ -1,4 +1,4 @@
-export const context = {
+const context = {
   logoUrl: "/images/galderma-logo.png", // Asegúrate de que esta ruta sea correcta
   establishedYear: "1981",
   companyName: "Galderma de Colombia S.A",
@@ -73,7 +73,7 @@ export const context = {
   totalAgreementsAmount: "35,700,900.0",
 };
 
-export const ejsContext = {
+const ejsContext = {
   logoUrl:
     "https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg", // URL de ejemplo
   aplication_number: "APP-00123",
@@ -201,7 +201,7 @@ export const ejsContext = {
   },
 };
 
-export const digitalRecordData = {
+const digitalRecordData = {
   // Logo y datos básicos
   logoUrl: "https://via.placeholder.com/140x70/0066cc/ffffff?text=LOGO",
   date: "22 de Agosto, 2025",
@@ -334,4 +334,41 @@ export const digitalRecordData = {
   ],
   totalAgreements: "4",
   totalAgreementsAmount: "41,690,000",
+};
+
+// Datos para la nueva plantilla de email marketing - New Signal Mail
+const newSignalMailData = {
+  // Nombre del usuario
+  userName: "Federico",
+
+  // URLs de imágenes locales
+  logoUrl: "/images/email_marketing/ds_logo.png",
+  bellImageUrl: "/images/email_marketing/bell.png",
+  phoneImageUrl: "/images/email_marketing/mock_signal_rotated.png",
+  instagramIconUrl: "/images/email_marketing/instagram.png",
+  youtubeIconUrl: "/images/email_marketing/youtube.png",
+  backgroundImageUrl: "/images/email_marketing/bg.png",
+  footerImageUrl: "/images/email_marketing/footer_image.png",
+
+  // Datos de la señal
+  signal: {
+    pair: "XAU/USD",
+    description: "Uno de nuestros traders vio una gran oportunidad en el mercado, que esperas para tomar su operación en"
+  },
+
+  // Links
+  appUrl: "https://google.com", // Por ahora Google como pidió el usuario
+  instagramUrl: "https://instagram.com/deepcapitals",
+  youtubeUrl: "https://youtube.com/deepcapitals",
+
+  // Branding
+  companyName: "DeepCapitals"
+};
+
+// Exportar todos los datos usando CommonJS
+module.exports = {
+  context,
+  ejsContext,
+  digitalRecordData,
+  newSignalMailData
 };

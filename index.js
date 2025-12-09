@@ -8,6 +8,7 @@ const {
   context,
   ejsContext,
   digitalRecordData,
+  newSignalMailData,
 } = require("./mockData/mockData.js");
 
 const app = express();
@@ -293,6 +294,74 @@ app.get("/generate-pdf-ejs", async (req, res) => {
     res.setHeader(
       "Content-Disposition",
       'attachment; filename="generated.pdf"'
+    );
+    res.setHeader("Content-Length", pdfBuffer.length);
+    res.end(pdfBuffer);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("PDF generation failed");
+  }
+});
+
+// Ruta para la nueva plantilla de email marketing - New Signal Mail
+app.get("/new-signal-mail", async (req, res) => {
+  try {
+    const templatePath = path.join(
+      __dirname,
+      "views",
+      "email_marketing",
+      "template_new_signal_mail.ejs"
+    );
+
+    ejs.renderFile(templatePath, newSignalMailData, (err, html) => {
+      if (err) {
+        console.error("Error rendering New Signal Mail template:", err);
+        return res
+          .status(500)
+          .send("An error occurred with New Signal Mail template");
+      }
+      res.send(html);
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("An error occurred");
+  }
+});
+
+// Ruta para generar PDF de la plantilla New Signal Mail
+app.get("/generate-pdf-new-signal", async (req, res) => {
+  try {
+    const templatePath = path.join(
+      __dirname,
+      "views",
+      "email_marketing",
+      "template_new_signal_mail.ejs"
+    );
+    const html = await ejs.renderFile(templatePath, newSignalMailData);
+
+    const browser = await puppeteer.launch({
+      headless: true,
+      args: ["--no-sandbox", "--disable-setuid-sandbox"],
+    });
+    const page = await browser.newPage();
+
+    // IMPORTANTE: Esperar a que las imágenes locales carguen
+    await page.setContent(html, {
+      waitUntil: "networkidle0",
+    });
+
+    const pdfBuffer = await page.pdf({
+      width: "600px", // Ancho estándar de email
+      printBackground: true,
+      margin: { top: "0mm", right: "0mm", bottom: "0mm", left: "0mm" },
+    });
+
+    await browser.close();
+
+    res.setHeader("Content-Type", "application/pdf");
+    res.setHeader(
+      "Content-Disposition",
+      'attachment; filename="new-signal-mail.pdf"'
     );
     res.setHeader("Content-Length", pdfBuffer.length);
     res.end(pdfBuffer);
