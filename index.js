@@ -303,6 +303,31 @@ app.get("/generate-pdf-ejs", async (req, res) => {
   }
 });
 
+// Ruta para la nueva plantilla de email marketing - New Message Mail
+app.get("/new-message-mail", async (req, res) => {
+  try {
+    const templatePath = path.join(
+      __dirname,
+      "views",
+      "email_marketing",
+      "template_new_message.ejs"
+    );
+
+    ejs.renderFile(templatePath, newSignalMailData, (err, html) => {
+      if (err) {
+        console.error("Error rendering New Message Mail template:", err);
+        return res
+          .status(500)
+          .send("An error occurred with New Message Mail template");
+      }
+      res.send(html);
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("An error occurred");
+  }
+});
+
 // Ruta para la nueva plantilla de email marketing - New Signal Mail
 app.get("/new-signal-mail", async (req, res) => {
   try {
