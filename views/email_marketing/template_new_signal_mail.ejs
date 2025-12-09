@@ -35,7 +35,7 @@
       }
 
       .email-container {
-        max-width: 600px;
+        max-width: 684px;
         margin: 0 auto;
         background-color: var(--black);
         padding: 40px 20px;
@@ -133,7 +133,7 @@
 
       .background-image {
         position: absolute;
-        left: -325px;
+        left: -385px;
         top: -180px;
         width: 370px;
         height: 370px;
@@ -242,10 +242,46 @@
         font-weight: 700;
       }
 
-      .footer-logo {
+      .footer-hero-section {
+        position: relative;
         width: 100%;
-        height: auto;
-        opacity: 0.7;
+        height: 122px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        border-radius: 42px;
+      }
+
+      .footer-hero-section::before {
+        content: "";
+        position: absolute;
+        bottom: 0px;
+        left: -150px;
+        width: 300px;
+        height: 300px;
+        background: radial-gradient(
+          circle,
+          var(--radialGradientStart) 0%,
+          var(--radialGradientEnd) 60%
+        );
+        z-index: 1;
+        pointer-events: none;
+      }
+
+      .footer-background-image {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-70%, -20%);
+        width: 370px;
+        height: 370px;
+        z-index: 0;
+      }
+
+      .footer-logo {
+        z-index: 2;
+        width: 160px;
       }
 
       /* Social Icons */
@@ -368,11 +404,14 @@
           <strong><%= companyName %></strong>
         </div>
 
-        <img
-          src="<%= footerImageUrl %>"
-          alt="Deep Signals"
-          class="footer-logo"
-        />
+        <div class="footer-hero-section">
+          <img src="<%= logoUrl %>" alt="Deep Signals" class="footer-logo" />
+          <img
+            src="<%= backgroundImageUrl %>"
+            alt="App"
+            class="footer-background-image"
+          />
+        </div>
 
         <!-- Social Icons -->
         <div class="social-icons">
