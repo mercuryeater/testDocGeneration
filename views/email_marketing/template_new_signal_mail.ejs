@@ -22,6 +22,8 @@
         --cyan-light: #00e5e5;
         --deepPrimary: #4dffe7ff;
         --deepSecondary: #1e6896;
+        --radialGradientStart: rgba(0, 209, 195, 1);
+        --radialGradientEnd: rgba(0, 129, 136, 0);
       }
 
       body {
@@ -48,10 +50,41 @@
         align-items: center;
         justify-content: left;
         border-radius: 42px;
-        border: 2px solid white;
         padding: 0 60px;
         overflow: hidden;
         min-height: 350px;
+      }
+
+      .top-content::before {
+        content: "";
+        position: absolute;
+        top: -220px;
+        left: -220px;
+        width: 400px;
+        height: 400px;
+        background: radial-gradient(
+          circle,
+          var(--radialGradientStart) 0%,
+          var(--radialGradientEnd) 60%
+        );
+        z-index: 1;
+        pointer-events: none;
+      }
+
+      .top-content::after {
+        content: "";
+        position: absolute;
+        bottom: -200px;
+        right: -100px;
+        width: 400px;
+        height: 400px;
+        background: radial-gradient(
+          circle,
+          var(--radialGradientStart) 0%,
+          var(--radialGradientEnd) 60%
+        );
+        z-index: 1;
+        pointer-events: none;
       }
 
       .header {
@@ -74,9 +107,9 @@
         font-weight: 700;
         line-height: 1.1;
         background: linear-gradient(
-          135deg,
-          var(--deepPrimary) 0%,
-          var(--deepSecondary) 100%
+          90deg,
+          var(--deepSecondary) 0%,
+          var(--deepPrimary) 100%
         );
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
@@ -120,7 +153,7 @@
       .phone-image {
         position: absolute;
         /* top: -200px; */
-        top: -130px;
+        top: -125px;
         right: 0px;
         width: 230px;
         height: auto;
