@@ -310,21 +310,14 @@ app.get("/new-message-mail", async (req, res) => {
       __dirname,
       "views",
       "email_marketing",
-      "template_new_message.ejs"
+      "template_new_message.handlebars"
     );
 
-    ejs.renderFile(templatePath, newSignalMailData, (err, html) => {
-      if (err) {
-        console.error("Error rendering New Message Mail template:", err);
-        return res
-          .status(500)
-          .send("An error occurred with New Message Mail template");
-      }
-      res.send(html);
-    });
+    const html = await renderTemplate(templatePath, newSignalMailData);
+    res.send(html);
   } catch (err) {
-    console.error(err);
-    res.status(500).send("An error occurred");
+    console.error("Error rendering New Message Mail template:", err);
+    res.status(500).send("An error occurred with New Message Mail template");
   }
 });
 
@@ -335,21 +328,14 @@ app.get("/new-signal-mail", async (req, res) => {
       __dirname,
       "views",
       "email_marketing",
-      "template_new_signal_mail.ejs"
+      "template_new_signal_mail.handlebars"
     );
 
-    ejs.renderFile(templatePath, newSignalMailData, (err, html) => {
-      if (err) {
-        console.error("Error rendering New Signal Mail template:", err);
-        return res
-          .status(500)
-          .send("An error occurred with New Signal Mail template");
-      }
-      res.send(html);
-    });
+    const html = await renderTemplate(templatePath, newSignalMailData);
+    res.send(html);
   } catch (err) {
-    console.error(err);
-    res.status(500).send("An error occurred");
+    console.error("Error rendering New Signal Mail template:", err);
+    res.status(500).send("An error occurred with New Signal Mail template");
   }
 });
 
@@ -360,9 +346,9 @@ app.get("/generate-pdf-new-signal", async (req, res) => {
       __dirname,
       "views",
       "email_marketing",
-      "template_new_signal_mail.ejs"
+      "template_new_signal_mail.handlebars"
     );
-    const html = await ejs.renderFile(templatePath, newSignalMailData);
+    const html = await renderTemplate(templatePath, newSignalMailData);
 
     const browser = await puppeteer.launch({
       headless: true,

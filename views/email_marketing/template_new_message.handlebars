@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Nueva Señal Disponible - Deep Signals</title>
+    <title>Nueva Senal Disponible - Deep Signals</title>
     <link
       href="https://fonts.googleapis.com/css2?family=Red+Hat+Display:ital,wght@0,300..900;1,300..900&display=swap"
       rel="stylesheet"
@@ -20,6 +20,7 @@
         --white: #ffffff;
         --cyan: #2cfff4;
         --cyan-light: #00e5e5;
+        --cyan-dull: #42dcd4;
         --deepPrimary: #4dffe7ff;
         --deepSecondary: #1e6896;
         --radialGradientStart: rgba(0, 209, 195, 1);
@@ -140,16 +141,6 @@
         z-index: 0;
       }
 
-      .bell-image {
-        z-index: 3;
-        position: absolute;
-        left: -325px;
-        top: -135px;
-        width: 160px;
-        height: auto;
-        display: block;
-      }
-
       .phone-image {
         position: absolute;
         /* top: -200px; */
@@ -172,29 +163,27 @@
       /* Subtitle */
       .subtitle {
         text-align: center;
-        font-size: 20px;
+        font-size: 26px;
         font-weight: 400;
         color: var(--cyan);
         line-height: 1.4;
       }
 
       .subtitle-highlight {
-        font-weight: 600;
+        font-weight: 700;
       }
 
       /* Description */
-      .description {
+      .message {
         font-size: 19px;
-        font-weight: 300;
+        font-weight: 400;
         text-align: center;
         color: var(--white);
         line-height: 1.6;
-        max-width: 500px;
         text-align: center;
-      }
-
-      .description strong {
-        font-weight: 600;
+        padding: 24px;
+        border: 1px solid var(--cyan-dull);
+        border-radius: 19px;
       }
 
       /* CTA Button */
@@ -356,19 +345,18 @@
       <div class="top-content">
         <!-- Header -->
         <div class="header">
-          <img src="<%= logoUrl %>" alt="Deep Signals" class="logo" />
+          <img src="{{logoUrl}}" alt="Deep Signals" class="logo" />
           <div class="title-section">
-            <div class="title-nueva">NUEVA SEÑAL</div>
+            <div class="title-nueva">NUEVO MENSAJE</div>
             <div class="title-disponible">DISPONIBLE</div>
           </div>
         </div>
 
         <!-- Hero Section -->
         <div class="hero-section">
-          <img src="<%= bellImageUrl %>" alt="Nueva Señal" class="bell-image" />
-          <img src="<%= phoneImageUrl %>" alt="App" class="phone-image" />
+          <img src="{{messageImageUrl}}" alt="App" class="phone-image" />
           <img
-            src="<%= backgroundImageUrl %>"
+            src="{{backgroundImageUrl}}"
             alt="App"
             class="background-image"
           />
@@ -380,19 +368,17 @@
       <div class="content-section">
         <!-- Subtitle -->
         <div class="subtitle">
-          Revisa tu aplicación enviamos una
-          <span class="subtitle-highlight">nueva señal</span>
+          <span class="subtitle-highlight"> {{signal.sender}} </span>
+          dice:
         </div>
 
         <!-- Description -->
-        <div class="description">
-          <%= signal.description %> <strong><%= signal.pair %></strong>
-        </div>
+        <div class="message">{{signal.message}}</div>
 
         <!-- CTA Button -->
         <div class="cta-container">
-          <a href="<%= appUrl %>" class="cta-button" target="_blank"
-            >Abrir aplicación</a
+          <a href="{{appUrl}}" class="cta-button" target="_blank"
+            >Abrir aplicacion</a
           >
         </div>
       </div>
@@ -400,14 +386,14 @@
       <!-- Footer -->
       <div class="footer">
         <div class="footer-text">
-          Estás recibiendo este correo porque eres miembro de
-          <strong><%= companyName %></strong>
+          Estas recibiendo este correo porque eres miembro de
+          <strong>{{companyName}}</strong>
         </div>
 
         <div class="footer-hero-section">
-          <img src="<%= logoUrl %>" alt="Deep Signals" class="footer-logo" />
+          <img src="{{logoUrl}}" alt="Deep Signals" class="footer-logo" />
           <img
-            src="<%= backgroundImageUrl %>"
+            src="{{backgroundImageUrl}}"
             alt="App"
             class="footer-background-image"
           />
@@ -415,16 +401,16 @@
 
         <!-- Social Icons -->
         <div class="social-icons">
-          <a href="<%= instagramUrl %>" class="social-icon" target="_blank">
-            <img src="<%= instagramIconUrl %>" alt="Instagram" />
+          <a href="{{instagramUrl}}" class="social-icon" target="_blank">
+            <img src="{{instagramIconUrl}}" alt="Instagram" />
           </a>
-          <a href="<%= youtubeUrl %>" class="social-icon" target="_blank">
-            <img src="<%= youtubeIconUrl %>" alt="YouTube" />
+          <a href="{{youtubeUrl}}" class="social-icon" target="_blank">
+            <img src="{{youtubeIconUrl}}" alt="YouTube" />
           </a>
         </div>
 
         <!-- Copyright -->
-        <div class="copyright">© <%= companyName %>, derechos reservados</div>
+        <div class="copyright">&copy; {{companyName}}, derechos reservados</div>
       </div>
     </div>
   </body>
