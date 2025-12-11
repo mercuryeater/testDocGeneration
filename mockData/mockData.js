@@ -351,13 +351,15 @@ const newSignalMailData = {
   footerImageUrl: "/images/email_marketing/footer_image.png",
   messageImageUrl: "/images/email_marketing/message_image.png",
 
+  // Información del mensaje
+  sender: "Duniño Duarte Osorio",
+  message: "Atentos nueva señal",
+
   // Datos de la señal
   signal: {
     pair: "XAU/USD",
     description:
       "Uno de nuestros traders vio una gran oportunidad en el mercado, que esperas para tomar su operación en",
-    sender: "Duniño Duarte Osorio",
-    message: "Atentos nueva señal",
   },
 
   // Links
