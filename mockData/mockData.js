@@ -363,12 +363,9 @@ const newSignalMailData = {
   },
 
   // Links
-  appUrl: "https://google.com", // Por ahora Google como pidió el usuario
+  appUrl: "https://app.deepcapitals.com", // Por ahora Google como pidió el usuario
   instagramUrl: "https://instagram.com",
   youtubeUrl: "https://youtube.com",
-
-  // Branding
-  companyName: "DeepCapitals",
 };
 
 // Exportar todos los datos usando CommonJS

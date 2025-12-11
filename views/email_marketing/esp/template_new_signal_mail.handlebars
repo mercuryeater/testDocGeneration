@@ -1,0 +1,440 @@
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      Nueva Senal Disponible - Deep Signals
+    </title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Red+Hat+Display:ital,wght@0,300..900;1,300..900&display=swap"
+      rel="stylesheet"
+    />
+    <!-- prettier-ignore -->
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      :root {
+        --black: #000000;
+        --white: #ffffff;
+        --cyan: #2cfff4;
+        --cyan-light: #00e5e5;
+        --deepPrimary: #4dffe7ff;
+        --deepSecondary: #1e6896;
+        --radialGradientStart: rgba(0, 209, 195, 1);
+        --radialGradientEnd: rgba(0, 129, 136, 0);
+      }
+
+      body {
+        font-family: "Red Hat Display", sans-serif;
+        background-color: var(--black);
+        color: var(--white);
+        margin: 0;
+        padding: 0;
+      }
+
+      .email-container {
+        max-width: 684px;
+        margin: 0 auto;
+        background-color: var(--black);
+        padding: 40px 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 77px;
+      }
+
+      .top-content {
+        display: flex;
+        position: relative;
+        align-items: center;
+        justify-content: left;
+        border-radius: 42px;
+        padding: 0 60px;
+        overflow: hidden;
+        min-height: 350px;
+      }
+
+      .top-content::before {
+        content: "";
+        position: absolute;
+        top: -220px;
+        left: -220px;
+        width: 400px;
+        height: 400px;
+        background: radial-gradient(
+          circle,
+          var(--radialGradientStart) 0%,
+          var(--radialGradientEnd) 60%
+        );
+        z-index: 1;
+        pointer-events: none;
+      }
+
+      .top-content::after {
+        content: "";
+        position: absolute;
+        bottom: -200px;
+        right: -100px;
+        width: 400px;
+        height: 400px;
+        background: radial-gradient(
+          circle,
+          var(--radialGradientStart) 0%,
+          var(--radialGradientEnd) 60%
+        );
+        z-index: 1;
+        pointer-events: none;
+      }
+
+      .header {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        z-index: 10;
+      }
+
+      .title-nueva {
+        font-size: 24px;
+        font-weight: 500;
+        color: var(--white);
+        line-height: 1.1;
+        letter-spacing: -1px;
+      }
+
+      .title-disponible {
+        font-size: 48px;
+        font-weight: 700;
+        line-height: 1.1;
+        background: linear-gradient(
+          90deg,
+          var(--deepSecondary) 0%,
+          var(--deepPrimary) 100%
+        );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        letter-spacing: -1px;
+      }
+
+      .logo {
+        width: 160px;
+        height: auto;
+      }
+
+      /* Hero Section */
+      .hero-section {
+        position: absolute;
+        right: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .background-image {
+        position: absolute;
+        left: -385px;
+        top: -180px;
+        width: 370px;
+        height: 370px;
+        z-index: 0;
+      }
+
+      .bell-image {
+        z-index: 3;
+        position: absolute;
+        left: -325px;
+        top: -135px;
+        width: 160px;
+        height: auto;
+        display: block;
+      }
+
+      .phone-image {
+        position: absolute;
+        /* top: -200px; */
+        top: -125px;
+        right: 0px;
+        width: 230px;
+        height: auto;
+        z-index: 2;
+        opacity: 0.9;
+      }
+
+      /* Content section */
+      .content-section {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+      }
+
+      /* Subtitle */
+      .subtitle {
+        text-align: center;
+        font-size: 20px;
+        font-weight: 400;
+        color: var(--cyan);
+        line-height: 1.4;
+      }
+
+      .subtitle-highlight {
+        font-weight: 600;
+      }
+
+      /* Description */
+      .description {
+        font-size: 19px;
+        font-weight: 300;
+        text-align: center;
+        color: var(--white);
+        line-height: 1.6;
+        max-width: 500px;
+        text-align: center;
+      }
+
+      .description strong {
+        font-weight: 600;
+      }
+
+      /* CTA Button */
+      .cta-container {
+        text-align: center;
+        margin-top: 16px;
+      }
+
+      .cta-button {
+        display: inline-block;
+        background-color: var(--cyan);
+        color: var(--black);
+        text-decoration: none;
+        font-size: 16px;
+        font-weight: 700;
+        padding: 16px 70px;
+        border-radius: 30px;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(0, 217, 217, 0.3);
+      }
+
+      .cta-button:hover {
+        background-color: var(--cyan-light);
+        box-shadow: 0 6px 20px rgba(0, 217, 217, 0.5);
+        transform: translateY(-2px);
+      }
+
+      /* Footer */
+      .footer {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 18px;
+        text-align: center;
+      }
+
+      .footer-text {
+        font-size: 15px;
+        color: var(--white);
+        line-height: 1.5;
+      }
+
+      .footer-text strong {
+        color: var(--white);
+        font-weight: 700;
+      }
+
+      .footer-hero-section {
+        position: relative;
+        width: 100%;
+        height: 122px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        border-radius: 42px;
+      }
+
+      .footer-hero-section::before {
+        content: "";
+        position: absolute;
+        bottom: 0px;
+        left: -150px;
+        width: 300px;
+        height: 300px;
+        background: radial-gradient(
+          circle,
+          var(--radialGradientStart) 0%,
+          var(--radialGradientEnd) 60%
+        );
+        z-index: 1;
+        pointer-events: none;
+      }
+
+      .footer-background-image {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-70%, -20%);
+        width: 370px;
+        height: 370px;
+        z-index: 0;
+      }
+
+      .footer-logo {
+        z-index: 2;
+        width: 160px;
+      }
+
+      /* Social Icons */
+      .social-icons {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+      }
+
+      .social-icon {
+        display: inline-block;
+        transition: opacity 0.3s ease;
+      }
+
+      .social-icon:hover {
+        opacity: 0.9;
+      }
+
+      .social-icon img {
+        max-width: 24px;
+        height: 24px;
+        object-fit: contain;
+      }
+
+      /* Copyright */
+      .copyright {
+        font-size: 12px;
+        color: var(--white);
+      }
+
+      /* Responsive */
+      @media (max-width: 500px) {
+        .top-content {
+          padding: 0 36px;
+        }
+        .email-container {
+          padding: 30px 15px;
+        }
+        .title-disponible {
+          font-size: 40px;
+        }
+        .subtitle {
+          font-size: 18px;
+        }
+        .description {
+          font-size: 14px;
+        }
+        .bell-image {
+          width: 140px;
+          left: -160px;
+          top: -120px;
+        }
+        .phone-image {
+          width: 140px;
+          top: 0px;
+        }
+        .cta-button {
+          padding: 14px 50px;
+          font-size: 15px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="email-container">
+      <div class="top-content">
+        <!-- Header -->
+        <div class="header">
+          <img src="{{logoUrl}}" alt="Deep Signals" class="logo" />
+          <div class="title-section">
+            <div class="title-nueva">
+              NUEVA SENAL
+            </div>
+            <div class="title-disponible">
+              DISPONIBLE
+            </div>
+          </div>
+        </div>
+
+        <!-- Hero Section -->
+        <div class="hero-section">
+          <img src="{{bellImageUrl}}" alt="Nueva Senal" class="bell-image" />
+          <img src="{{phoneImageUrl}}" alt="App" class="phone-image" />
+          <img
+            src="{{backgroundImageUrl}}"
+            alt="App"
+            class="background-image"
+          />
+        </div>
+
+        <!-- Title -->
+      </div>
+
+      <div class="content-section">
+        <!-- Subtitle -->
+        <div class="subtitle">
+          Revisa tu aplicacion enviamos una
+          <span class="subtitle-highlight">
+            nueva señal
+          </span>
+        </div>
+
+        <!-- Description -->
+        <div class="description">
+          {{signal.description}}
+          <strong>
+            {{signal.pair}}
+          </strong>
+        </div>
+
+        <!-- CTA Button -->
+        <div class="cta-container">
+          <a href="{{appUrl}}" class="cta-button" target="_blank">
+            Abrir aplicacion
+          </a>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <div class="footer">
+        <div class="footer-text">
+          Estas recibiendo este correo porque eres miembro de
+          <strong>
+            DeepCapitals
+          </strong>
+        </div>
+
+        <div class="footer-hero-section">
+          <img src="{{logoUrl}}" alt="Deep Signals" class="footer-logo" />
+          <img
+            src="{{backgroundImageUrl}}"
+            alt="App"
+            class="footer-background-image"
+          />
+        </div>
+
+        <!-- Social Icons -->
+        <div class="social-icons">
+          <a href="{{instagramUrl}}" class="social-icon" target="_blank">
+            <img src="{{instagramIconUrl}}" alt="Instagram" />
+          </a>
+          <a href="{{youtubeUrl}}" class="social-icon" target="_blank">
+            <img src="{{youtubeIconUrl}}" alt="YouTube" />
+          </a>
+        </div>
+
+        <!-- Copyright -->
+        <div class="copyright">
+          &copy; DeepCapitals, derechos reservados
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

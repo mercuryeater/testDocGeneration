@@ -306,10 +306,12 @@ app.get("/generate-pdf-ejs", async (req, res) => {
 // Ruta para la nueva plantilla de email marketing - New Message Mail
 app.get("/new-message-mail", async (req, res) => {
   try {
+    const lang = req.query.lang || "eng";
     const templatePath = path.join(
       __dirname,
       "views",
       "email_marketing",
+      lang,
       "template_new_message.handlebars"
     );
 
@@ -324,10 +326,12 @@ app.get("/new-message-mail", async (req, res) => {
 // Ruta para la nueva plantilla de email marketing - New Signal Mail
 app.get("/new-signal-mail", async (req, res) => {
   try {
+    const lang = req.query.lang || "eng";
     const templatePath = path.join(
       __dirname,
       "views",
       "email_marketing",
+      lang,
       "template_new_signal_mail.handlebars"
     );
 
@@ -342,10 +346,12 @@ app.get("/new-signal-mail", async (req, res) => {
 // Ruta para generar PDF de la plantilla New Signal Mail
 app.get("/generate-pdf-new-signal", async (req, res) => {
   try {
+    const lang = req.query.lang || "eng";
     const templatePath = path.join(
       __dirname,
       "views",
       "email_marketing",
+      lang,
       "template_new_signal_mail.handlebars"
     );
     const html = await renderTemplate(templatePath, newSignalMailData);
